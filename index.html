@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapBind - Retro Edition</title>
+    <title>SnapBind - Pixel Animated Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,26 +21,73 @@
             border: 4px solid #000;
             box-shadow: 4px 4px 0px #000;
         }
+        .retro-button {
+            transition: all 0.1s steps(4);
+        }
         .retro-button:active {
             transform: translate(2px, 2px);
             box-shadow: 2px 2px 0px #000;
         }
         
         /* Pixel Backgrounds */
-        .bg-pixel-midnight {
-            background: linear-gradient(to bottom, #0c0c1e, #1a1a3a);
+        .bg-pixel-midnight { background: linear-gradient(to bottom, #0c0c1e, #1a1a3a); }
+        .bg-pixel-sunrise { background: linear-gradient(to bottom, #ff8c00, #ffd700); }
+        .bg-pixel-forest { background: linear-gradient(to bottom, #2d5a27, #1e3c1a); }
+        .bg-pixel-town { background: linear-gradient(to bottom, #4a4a4a, #2a2a2a); }
+
+        /* Animations */
+        @keyframes flap {
+            0%, 100% { transform: scaleY(1); transform-origin: center; }
+            50% { transform: scaleY(0.3); transform-origin: center; }
         }
-        .bg-pixel-sunrise {
-            background: linear-gradient(to bottom, #ff8c00, #ffd700);
+        @keyframes fly-across {
+            from { left: -10%; }
+            to { left: 110%; }
         }
-        .bg-pixel-forest {
-            background: linear-gradient(to bottom, #2d5a27, #1e3c1a);
+        @keyframes pixel-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .bg-pixel-town {
-            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+        @keyframes pixel-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        @keyframes scanline {
+            0% { top: 0; }
+            100% { top: 100%; }
         }
 
-        /* Custom Scrollbar */
+        /* CLIP-PATH ANIMAL SHAPES */
+        .pixel-bat {
+            width: 12px; height: 8px; background: #000;
+            clip-path: polygon(0% 25%, 25% 0%, 50% 25%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 50% 75%, 25% 100%, 0% 75%);
+        }
+        .pixel-sparrow {
+            width: 10px; height: 6px; background: #fff;
+            clip-path: polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
+        }
+        .pixel-eagle {
+            width: 14px; height: 10px; background: #5d4037;
+            clip-path: polygon(0% 40%, 20% 0%, 50% 20%, 80% 0%, 100% 40%, 80% 100%, 20% 100%);
+        }
+        .pixel-crow {
+            width: 10px; height: 8px; background: #333;
+            clip-path: polygon(0% 30%, 30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%);
+        }
+
+        .animate-flap { animation: flap 0.3s steps(2) infinite; }
+        .animate-fly-slow { animation: fly-across 15s linear infinite; }
+        .animate-fly-medium { animation: fly-across 10s linear infinite; }
+        .animate-fly-fast { animation: fly-across 6s linear infinite; }
+        .animate-pixel-float { animation: pixel-float 3s steps(8) infinite; }
+        .animate-pixel-pulse { animation: pixel-pulse 2s steps(4) infinite; }
+        
+        .scanline {
+            width: 100%; height: 4px; background: rgba(255, 255, 255, 0.05);
+            position: absolute; animation: scanline 6s linear infinite;
+            pointer-events: none; z-index: 50;
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #fff; border: 2px solid #000; }
@@ -61,6 +108,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-<script type="module" src="/src/index.tsx"></script>
 </body>
 </html>
